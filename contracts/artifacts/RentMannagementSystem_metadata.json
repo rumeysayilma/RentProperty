@@ -1,0 +1,232 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_propertyAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_propertyType",
+						"type": "string"
+					}
+				],
+				"name": "addProperty",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "contractInformations",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "ownerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "tenantAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "propertyAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "propertyType",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "contractStartDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "contractFinishDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "validityStatus",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "earlyTerminate",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_tenantAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_propertyAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_propertyType",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_contractStartDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_contractFinishDate",
+						"type": "uint256"
+					}
+				],
+				"name": "contractStart",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "_isOwner",
+						"type": "bool"
+					}
+				],
+				"name": "createUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "propertyInformations",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "ownerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "propertyAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "propertyType",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "contractValidityStatus",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "userInformations",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "Name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "UserAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "isOwner",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/RentContract.sol": "RentMannagementSystem"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/RentContract.sol": {
+			"keccak256": "0xe6c0892806105d6a9d4e5d738d16814a957f4daed7508ce6ca4061c31fd3d0fb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9db9708a18edb2aa18a8dbbfab962bdeba1d009f55668708f8597e12c7abed01",
+				"dweb:/ipfs/QmTCqtsyhq64tRxdkTU5nQf4VXhSv9ksemLf1dnpkdjUHa"
+			]
+		}
+	},
+	"version": 1
+}
