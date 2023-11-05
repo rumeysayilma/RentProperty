@@ -23,6 +23,7 @@ contract RentMannagementSystem {
         string propertyAddress;
         string propertyType; //ev veya dükkan
         bool contractValidityStatus;
+        uint contractID; //default zero
     }
 
     struct RentContract {
@@ -71,7 +72,7 @@ contract RentMannagementSystem {
         require(userInformations[msg.sender].isOwner, "Tenants can't add properties");
         //Is there a landlord address in the list where the property address is registered?
         require(propertyInformations[_propertyAddress].ownerAddress == address(0), "Property already exists");
-        propertyInformations[_propertyAddress] = Property(msg.sender, _propertyAddress, _propertyType, false);
+        propertyInformations[_propertyAddress] = Property(msg.sender, _propertyAddress, _propertyType, false, 0);
     }
 
     function contractStart(address _tenantAddress, string memory _propertyAddress, string memory _propertyType, uint _contractStartDate, uint _contractFinishDate) public {
@@ -82,6 +83,7 @@ contract RentMannagementSystem {
         uint contractID = uint(keccak256(abi.encodePacked(msg.sender, _propertyAddress, _contractStartDate, _contractFinishDate)));
 
         contractInformations[contractID] = RentContract(msg.sender, _tenantAddress,  _propertyAddress, _propertyType, _contractStartDate, _contractFinishDate, true, false);
+        propertyInformations[_propertyAddress].contractID = contractID;
     }
 
     function contractTerminate(uint _contractID, bool _legitimate, string memory _reason) public {
@@ -177,9 +179,21 @@ contract RentMannagementSystem {
         return blackList[_userAddress];
     }
 
+    function getComplains(uint _contractID) public view returns (uint ID, address user, address target, string memory reason) {
+        return (contractComplainReasons[_contractID].contractID,contractComplainReasons[_contractID].userAddress,contractComplainReasons[_contractID].targetAddress,contractComplainReasons[_contractID].ComplainReason );
 
+    
+    }
 
+    function getTerminateRequest(uint _contractID) public view returns (uint ID, address user,  string memory reason) {
+        return (contractTerminateReasons[_contractID].contractID,contractTerminateReasons[_contractID].userAddress,contractTerminateReasons[_contractID].TerminationReason );
 
+    
+    }
+
+    function getContractId(string memory _propertyAddress) public view returns (uint) {
+        return propertyInformations[_propertyAddress].contractID;
+    }
 
 
 

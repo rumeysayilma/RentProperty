@@ -337,6 +337,88 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_contractID",
+						"type": "uint256"
+					}
+				],
+				"name": "getComplains",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "ID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "target",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_propertyAddress",
+						"type": "string"
+					}
+				],
+				"name": "getContractId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_contractID",
+						"type": "uint256"
+					}
+				],
+				"name": "getTerminateRequest",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "ID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "string",
 						"name": "",
 						"type": "string"
@@ -363,6 +445,11 @@
 						"internalType": "bool",
 						"name": "contractValidityStatus",
 						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "contractID",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -426,11 +513,11 @@
 	},
 	"sources": {
 		"contracts/RentContract.sol": {
-			"keccak256": "0x6e0095e6c90046ef062313712f9394613ce8856e6de01277393647ce94cb136d",
+			"keccak256": "0x8fab27269bb3935b03bee8d23446f8488734892627b6c48c339a5079839a2e05",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1acc7131d7acba668cc2812e3d45f7246068eb2ee3073eef0855311714bb6f91",
-				"dweb:/ipfs/QmPmjgv7rZ1pEqoJ2rreYhJGvjumd3yxyBzbpYuqGu1CjK"
+				"bzz-raw://ffd9fe368b1db68343748f5217d7bc9ac2488bcf906c831aa2acc9608f48a96d",
+				"dweb:/ipfs/QmWrooPJxXoBfUqBVMyjK84zLB2AuUxH3ECvmHcgf7vDQ2"
 			]
 		}
 	},
