@@ -3,6 +3,15 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 contract RentMannagementSystem {
+
+    address public ContractAdmin; //Deploy address
+
+    constructor() {
+        ContractAdmin = msg.sender; // Deploy address
+    }
+
+    mapping(address => bool) public blackList;
+
     struct User {
         string Name;
         address UserAddress;
@@ -27,9 +36,27 @@ contract RentMannagementSystem {
         bool earlyTerminate;
     }
 
+    struct ContractTerminater {
+        uint contractID;
+        address userAddress;
+        string TerminationReason;
+        address willApprove;
+    }
+
+    struct ContractComplain {
+        uint contractID;
+        address userAddress;
+        address targetAddress;
+        string ComplainReason;
+        address willApprove;
+    }
+
     mapping(address => User) public userInformations;
     mapping(string => Property) public propertyInformations;
     mapping(uint => RentContract) public contractInformations;
+    mapping(uint => ContractComplain) public contractComplainReasons; //contract id and complains
+    mapping(uint => ContractTerminater) public contractTerminateReasons; //contract id and terminate
+    
 
     function createUser(string memory _name, bool _isOwner) public {
         //The user who wants to register is checked from the user list
@@ -56,4 +83,104 @@ contract RentMannagementSystem {
 
         contractInformations[contractID] = RentContract(msg.sender, _tenantAddress,  _propertyAddress, _propertyType, _contractStartDate, _contractFinishDate, true, false);
     }
+
+    function contractTerminate(uint _contractID, bool _legitimate, string memory _reason) public {
+        //Contract termination can only be done by the tenant and the landlord
+        require(contractInformations[_contractID].tenantAddress == msg.sender || contractInformations[_contractID].ownerAddress == msg.sender, "You have no authority.");
+        require(contractInformations[_contractID].validityStatus == true, "Contract is not valid");
+
+        // Tenant can terminate the contract unconditionally
+        if (contractInformations[_contractID].tenantAddress == msg.sender) {
+                    
+            uint finishDate = contractInformations[_contractID].contractFinishDate;
+            uint lastFifteenDay = block.timestamp + (15 days); // current time + 15 gün
+
+            require(finishDate < lastFifteenDay, "Not 15 days before the contract end date");
+            if(finishDate < lastFifteenDay)
+            {
+                contractInformations[_contractID].earlyTerminate = true; //termination status true
+                contractInformations[_contractID].validityStatus = false; //contract activity has been terminated
+            }
+            else 
+            {
+                contractTerminateReasons[_contractID] = ContractTerminater(_contractID, contractInformations[_contractID].tenantAddress , _reason, contractInformations[_contractID].ownerAddress );
+            }
+     
+
+        }
+        
+        // The property owner indicates justified/unfair termination
+        if (contractInformations[_contractID].ownerAddress == msg.sender) {
+            // If the landlord wants to terminate with just cause, he/she waits for approval.
+            if (_legitimate) {
+
+                contractTerminateReasons[_contractID] = ContractTerminater(_contractID, contractInformations[_contractID].ownerAddress , _reason, contractInformations[_contractID].tenantAddress );              
+                //contractInformations[_contractID].validityStatus = false;
+            } else {
+                // Ev sahibi haksız fesih yapmak istiyorsa direkt olarak sözleşmeyi sonlandırabilir
+                contractTerminateReasons[_contractID] = ContractTerminater(_contractID, contractInformations[_contractID].ownerAddress , _reason, contractInformations[_contractID].tenantAddress );  
+                //require(msg.sender == contractInformations[_contractID].tenantAddress , "Only tenant can confirm");
+                contractTerminateReasons[_contractID] = ContractTerminater(_contractID, contractInformations[_contractID].ownerAddress , _reason, ContractAdmin );  
+                
+                //require(msg.sender == ContractAdmin, "Only the person who deployed can confirm");
+                //contractInformations[_contractID].earlyTerminate = true;
+                //contractInformations[_contractID].validityStatus = false;
+            }
+        }
+    }
+
+    function contractTerminateManage(uint _contractID, bool _approve) public {
+        require(contractInformations[_contractID].validityStatus == true, "Contract is not valid");
+        require(contractTerminateReasons[_contractID].willApprove == msg.sender, "User not authorized");
+
+        if(_approve == true)
+        {
+                contractInformations[_contractID].earlyTerminate = true;
+                contractInformations[_contractID].validityStatus = false;
+        }
+
+
+    }
+
+    function complainUser(uint _contractID, string memory _complainReason) public {
+        require(contractInformations[_contractID].tenantAddress == msg.sender || contractInformations[_contractID].ownerAddress == msg.sender, "Only the tenant or property owner can file a complaint");
+        if (contractInformations[_contractID].tenantAddress == msg.sender)
+        {
+
+             contractComplainReasons[_contractID] = ContractComplain(_contractID, contractInformations[_contractID].tenantAddress, contractInformations[_contractID].ownerAddress , _complainReason,  ContractAdmin);
+
+        }
+
+        if (contractInformations[_contractID].ownerAddress == msg.sender)
+        {
+
+             contractComplainReasons[_contractID] = ContractComplain(_contractID, contractInformations[_contractID].ownerAddress , contractInformations[_contractID].tenantAddress, _complainReason, ContractAdmin );
+
+        }
+       
+
+    }
+
+    function complainUserManage(uint _contractID, bool _approve) public {
+        require(contractInformations[_contractID].validityStatus == true, "Contract is not valid");
+        require(contractComplainReasons[_contractID].willApprove == msg.sender, "User not authorized");
+
+        if(_approve == true)
+        {
+            blackList[contractComplainReasons[_contractID].targetAddress] = true;
+        }
+
+
+    }
+
+    function getBlackListStatus(address _userAddress) public view returns (bool) {
+        return blackList[_userAddress];
+    }
+
+
+
+
+
+
+
 }

@@ -6,6 +6,24 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "ContractAdmin",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -21,6 +39,100 @@
 				"name": "addProperty",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "blackList",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_contractID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_complainReason",
+						"type": "string"
+					}
+				],
+				"name": "complainUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_contractID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_approve",
+						"type": "bool"
+					}
+				],
+				"name": "complainUserManage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "contractComplainReasons",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "contractID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "targetAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "ComplainReason",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "willApprove",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -113,6 +225,81 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_contractID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_legitimate",
+						"type": "bool"
+					},
+					{
+						"internalType": "string",
+						"name": "_reason",
+						"type": "string"
+					}
+				],
+				"name": "contractTerminate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_contractID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_approve",
+						"type": "bool"
+					}
+				],
+				"name": "contractTerminateManage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "contractTerminateReasons",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "contractID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "TerminationReason",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "willApprove",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "string",
 						"name": "_name",
 						"type": "string"
@@ -126,6 +313,25 @@
 				"name": "createUser",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_userAddress",
+						"type": "address"
+					}
+				],
+				"name": "getBlackListStatus",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -220,11 +426,11 @@
 	},
 	"sources": {
 		"contracts/RentContract.sol": {
-			"keccak256": "0xe6c0892806105d6a9d4e5d738d16814a957f4daed7508ce6ca4061c31fd3d0fb",
+			"keccak256": "0x6e0095e6c90046ef062313712f9394613ce8856e6de01277393647ce94cb136d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9db9708a18edb2aa18a8dbbfab962bdeba1d009f55668708f8597e12c7abed01",
-				"dweb:/ipfs/QmTCqtsyhq64tRxdkTU5nQf4VXhSv9ksemLf1dnpkdjUHa"
+				"bzz-raw://1acc7131d7acba668cc2812e3d45f7246068eb2ee3073eef0855311714bb6f91",
+				"dweb:/ipfs/QmPmjgv7rZ1pEqoJ2rreYhJGvjumd3yxyBzbpYuqGu1CjK"
 			]
 		}
 	},
